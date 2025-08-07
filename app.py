@@ -20,7 +20,7 @@ API_KEY2 = "sk-or-v1-3bfc94a8343aa2629ea211031f657fc48ca958fab42f094a8c1f6e00450
 
 class_labels = ['F0', 'F1', 'F2', 'F3', 'F4']
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='build', static_url_path='')
 app.secret_key = "sır-gibi-sakla-bunu"
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
