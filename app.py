@@ -10,6 +10,8 @@ import base64
 import os
 import pdfplumber
 import sqlite3
+from functools import lru_cache
+
 # Model paths
 RF_MODEL_PATH = "rf_model.pkl"
 SCALER_PATH = "scaler.pkl"
@@ -24,11 +26,19 @@ app = Flask(__name__, static_folder='build', static_url_path='')
 app.secret_key = "sır-gibi-sakla-bunu"
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
-with open(SCALER_PATH, "rb") as f:
-    scaler = pickle.load(f)
-with open(RF_MODEL_PATH, "rb") as f:
-    rf_model = pickle.load(f)
-cnn_model = tf.keras.models.load_model(CNN_MODEL_PATH)
+@lru_cache(maxsize=1)
+def get_scaler():
+    with open(SCALER_PATH, "rb") as f:
+        return pickle.load(f)
+
+@lru_cache(maxsize=1)
+def get_rf_model():
+    with open(RF_MODEL_PATH, "rb") as f:
+        return pickle.load(f)
+
+@lru_cache(maxsize=1)
+def get_cnn_model():
+    return tf.keras.models.load_model(CNN_MODEL_PATH)
 
 DB_PATH = "users.db"
 
@@ -386,9 +396,12 @@ def predict():
 
         ])
 
-        scaled_input = scaler.transform(df_input)
+        scaler = get_scaler()
+        rf_model = get_rf_model()
 
+        scaled_input = scaler.transform(df_input)
         clinic_prediction = rf_model.predict(scaled_input)[0]
+
 
         print(f"\nClinical prediction (RF model): {clinic_prediction}")
 
@@ -400,7 +413,9 @@ def predict():
 
         img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
 
+        cnn_model = get_cnn_model()
         predictions = cnn_model.predict(img_array)
+
 
         predicted_class = class_labels[np.argmax(predictions)]
 
