@@ -722,11 +722,11 @@ def logout():
     session.clear()  
     return jsonify({"success": True, "message": "Çıkış yapıldı."})
 
-if __name__ == "__main__":
-    print("Starting Liver Fibrosis Prediction API...")
-    init_db()
-    app.run(debug=True, port=5001)
-    
+
+print("Starting Liver Fibrosis Prediction API...")
+init_db()
+app.run(debug=True, port=5001)
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react_app(path):
