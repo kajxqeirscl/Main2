@@ -66,7 +66,7 @@ const ResultAndReportPage = () => {
       if (!tc || !llmExplanation || reportSent || retryCount > 3) return;
 
       try {
-        const response = await fetch("http://localhost:5001/add_report", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/add_report`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

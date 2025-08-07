@@ -26,17 +26,17 @@ const HastaGecmisPage = () => {
 
   useEffect(() => {
   if (tc) {
-    fetch(`http://localhost:5001/patients/${tc}`)
+    fetch(`${process.env.REACT_APP_API_URL}/patients/${tc}`)
       .then((res) => res.json())
       .then((data) => setHasta(data))
       .catch((err) => console.error("Hasta bilgisi çekme hatası:", err));
 
-    fetch(`http://localhost:5001/get_reports/${tc}`)
+    fetch(`${process.env.REACT_APP_API_URL}/get_reports/${tc}`)
       .then((res) => res.json())
       .then((data) => {
         const reports = data.reports || [];
         setRaporlar(reports);
-  fetch(`http://localhost:5001/lab_values/${tc}`)
+  fetch(`${process.env.REACT_APP_API_URL}/lab_values/${tc}`)
     .then((res) => res.json())
     .then((data) => {
       const labValues = data.lab_values || [];

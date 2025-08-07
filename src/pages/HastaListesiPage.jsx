@@ -8,7 +8,7 @@ const HastaListesiPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5001/patients", {
+    fetch(`${process.env.REACT_APP_API_URL}/patients`, {
       credentials: "include",
     })
       .then((res) => res.json())

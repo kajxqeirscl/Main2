@@ -22,7 +22,7 @@ const DoktorGirisPage = () => {
 
   // Hastaları çek
   useEffect(() => {
-    fetch("http://localhost:5001/patients", { credentials: "include" })
+    fetch(`${process.env.REACT_APP_API_URL}/patients`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
