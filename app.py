@@ -11,9 +11,9 @@ import os
 import pdfplumber
 import sqlite3
 # Model paths
-RF_MODEL_PATH = "/Users/cengizhankaraman/Desktop/SON PROJE/Main2/rf_model.pkl"
-SCALER_PATH = "/Users/cengizhankaraman/Desktop/SON PROJE/Main2/scaler.pkl"
-CNN_MODEL_PATH = "/Users/cengizhankaraman/Desktop/SON PROJE/Main2/cnn_model.h5"
+RF_MODEL_PATH = "rf_model.pkl"
+SCALER_PATH = "scaler.pkl"
+CNN_MODEL_PATH = "cnn_model.h5"
 
 API_KEY = "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"
 API_KEY2 = "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"
