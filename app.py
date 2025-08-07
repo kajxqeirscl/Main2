@@ -726,3 +726,11 @@ if __name__ == "__main__":
     print("Starting Liver Fibrosis Prediction API...")
     init_db()
     app.run(debug=True, port=5001)
+    
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_react_app(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return app.send_static_file(path)
+    else:
+        return app.send_static_file("index.html")
