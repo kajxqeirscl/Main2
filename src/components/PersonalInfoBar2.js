@@ -63,7 +63,7 @@ const PersonalInfoBar2 = ({ onLogout }) => {
   const isSmallScreen = windowWidth <= 768; // You can adjust this breakpoint
 
   const handleLogout = () => {
-    fetch("http://localhost:5001/logout", {
+    fetch(`${process.env.REACT_APP_API_URL}/logout`, {
       method: "POST",
       credentials: "include",
     })

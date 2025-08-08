@@ -62,7 +62,7 @@ const PersonalInfoBar = ({ onLogout }) => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:5001/check-password", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/check-password`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -83,7 +83,7 @@ const PersonalInfoBar = ({ onLogout }) => {
   };
 
   const handleLogout = () => {
-    fetch("http://localhost:5001/logout", {
+    fetch(`${process.env.REACT_APP_API_URL}/logout`, {
       method: "POST",
       credentials: "include",
     })
